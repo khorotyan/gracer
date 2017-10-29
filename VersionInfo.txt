@@ -1,0 +1,6 @@
+Features for version 0.11
+1. Make a menu letting the user to 
+	a. Select the total number of neurons and hidden layers
+	b. Making new rays by writing the angles
+	c. Selecting the mutation rate 
+	d. Reset and Exit the program 

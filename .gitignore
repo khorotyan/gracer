@@ -1,4 +1,14 @@
-TheProject/Assets/3D Objects/
-TheProject/Assets/Additional Assets/
-TheProject/Library/
-TheProject/Assets/Images/
+GRacer/Assets/3D Objects/
+GRacer/Library/
+GRacer/Assets/Images/
+GRacer/Assets/Additional Assets/BLINDED_AM_ME package/
+GRacer/Assets/Additional Assets/UnityCarAssets/CrossPlatformInput/
+GRacer/Assets/Additional Assets/UnityCarAssets/Editor/
+GRacer/Assets/Additional Assets/UnityCarAssets/Vehicles/Aircraft/
+GRacer/Assets/Additional Assets/UnityCarAssets/Vehicles/Car/Shaders/
+GRacer/Assets/Additional Assets/UnityCarAssets/Vehicles/Car/Textures/
+GRacer/Assets/Additional Assets/UnityCarAssets/Vehicles/Car/Prefabs/
+GRacer/Assets/Additional Assets/UnityCarAssets/Vehicles/Car/Materials/
+GRacer/Assets/Additional Assets/UnityCarAssets/Vehicles/Car/Audio/
+GRacer/Assets/Additional Assets/UnityCarAssets/Vehicles/Car/Models/
+*.meta
