@@ -146,6 +146,7 @@
     <Compile Include="Assets\C# Scripts\GeneticAlgorithm.cs" />
     <Compile Include="Assets\C# Scripts\MainController.cs" />
     <Compile Include="Assets\C# Scripts\NotACarController.cs" />
+    <Compile Include="Assets\C# Scripts\UIController.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Additional Assets\BLINDED_AM_ME package\LICENSE.txt" />

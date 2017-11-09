@@ -27,6 +27,7 @@ public class CarCollisionChecker : MonoBehaviour
         if (other.tag == "Road")
         {
             colliding = true;
+            Debug.Log(111);
         }
 
         if (other.tag == "Checkpoint")

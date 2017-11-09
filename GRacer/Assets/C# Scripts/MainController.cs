@@ -10,16 +10,17 @@ public class MainController : MonoBehaviour
     public Text generationText;
     public Text numOfLapsText;
     public Text bestTravelText;
+    public Text speedText;
 
     public static int numOfCars;
     
-    private float mutationRate = 0.05f;
+    public static float mutationRate = 0.05f;
     private int bestIndNum = 2;
 
-    private int inputs = NotACarController.angles.Length + 1; // ray count + speed
+    private int inputs; // ray count + speed
     private int outputs = 3;
-    private int hiddenLayers = 1;
-    private int numOfNeurons = 10; // Total number of neurons
+    public static int hiddenLayers = 1;
+    public static int numOfNeurons = 10; // Total number of neurons
     private int dnaSize;
 
     public GeneticAlgorithm<double> ga;
@@ -29,7 +30,8 @@ public class MainController : MonoBehaviour
     private void Awake()
     {
         Application.runInBackground = true;
-        //Time.timeScale = 1;
+
+        inputs = NotACarController.angles.Length + 1;
 
         numOfCars = carsParentTr.childCount;
         carControllers = new NotACarController[carsParentTr.childCount];
@@ -58,6 +60,7 @@ public class MainController : MonoBehaviour
 
     private void Update()
     {
+        Debug.Log(NotACarController.totalLost);
         if (NotACarController.totalLost == numOfCars)
         {
             for (int i = 0; i < carsParentTr.childCount; i++)
@@ -95,13 +98,13 @@ public class MainController : MonoBehaviour
         Camera.main.GetComponent<CameraController>().camRider = carsParentTr.GetChild(bestCarID);
 
         numOfLapsText.text = "Lap Number: " + carControllers[bestCarID].numOfLaps.ToString();
-        bestTravelText.text = "Car #" + (bestCarID + 1) + " - Total: " + carControllers[bestCarID].totalTravel.ToString("F0") + " Meters" +
+        bestTravelText.text = "Best #" + (bestCarID + 1) + " - Total: " + carControllers[bestCarID].totalTravel.ToString("F0") + " Meters" +
             " + " + carControllers[bestCarID].totalBonus;
+        speedText.text = "Speed: " + carControllers[bestCarID].currSpeed.ToString("F0");
 
         // If we click a button, save the weights and stop the simulation
 
-        if (Input.GetKeyDown(KeyCode.Escape))
-            SceneManager.SetActiveScene(SceneManager.GetActiveScene());
+        //if (Input.GetKeyDown(KeyCode.Escape))
     }
 
     IEnumerator NewGeneration(float seconds)
@@ -187,8 +190,4 @@ public class MainController : MonoBehaviour
 
         return fitness;
     }
-}
-namespace SelfDrivingCar
-{
-
 }

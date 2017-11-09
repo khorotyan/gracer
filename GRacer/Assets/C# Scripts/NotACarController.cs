@@ -115,16 +115,7 @@ public class NotACarController : MonoBehaviour
     private void CheckCarProgress()
     {
         if (totalTime < 6)
-        {
-            if (totalTime > 2)
-            {
-                if (Vector3.Distance(currPos, transform.position) < 0.5f)
-                {
-                    carColl.colliding = true;
-                    Debug.Log("Terminated Car: " + (carID + 1));
-                }
-            }
-
+        {            
             totalTime += 1 * Time.deltaTime;
         }
         else
@@ -133,7 +124,7 @@ public class NotACarController : MonoBehaviour
             if (Vector3.Distance(currPos, transform.position) < 3)
             {
                 carColl.colliding = true;
-                Debug.Log("Terminated Car: #" + (carID + 1));
+                //Debug.Log("Terminated Car: #" + (carID + 1));
             }
 
             currPos = transform.position;
@@ -201,10 +192,10 @@ public class NotACarController : MonoBehaviour
             float[] preds = Predict(activationOnLast: true, lastActivationFunc: "TanH");
 
             float predictH = preds[0];
-            horizontal += FixPrediction(predictH, horizontal, "TanH");
+            horizontal += FixPrediction(predictH, horizontal, "TanH", biased: false, vertical: false);
 
             float predictV = preds[1];
-            vertical += FixPrediction(predictV, vertical, "TanH");
+            vertical += FixPrediction(predictV, vertical, "TanH", biased: false, vertical: true);
 
             float predBrake = preds[2] > 0 ? 1 : 0;
 
@@ -215,15 +206,33 @@ public class NotACarController : MonoBehaviour
     }
 
     // Configures the key that must be pressed and the way car pedal push/release works
-    private float FixPrediction(float prediction, float axisVel, string lastActivationFunc)
+    private float FixPrediction(float prediction, float axisVel, string lastActivationFunc, bool biased, bool vertical)
     {
         float keyOption = 0;
         
-        if (lastActivationFunc == "Sigmoid")
-            keyOption = prediction > 0.66f ? 1 : (prediction > 0.33 ? 0 : -1);
-        else if (lastActivationFunc == "TanH")
-            keyOption = prediction < -0.33f ? -1 : (prediction > 0.33 ? 1 : 0);
-
+        // Help the car understand that it needs to go forward
+        if (biased == true && vertical == true)
+        {
+            if (lastActivationFunc == "Sigmoid")
+                keyOption = prediction > 0.40f ? 1 : (prediction > 0.15 ? 0 : -1);
+            else if (lastActivationFunc == "TanH")
+                keyOption = prediction < -0.30f ? -1 : (prediction > -0.20 ? 1 : 0);
+        }
+        else if (biased == true && vertical == false)
+        {
+            if (lastActivationFunc == "Sigmoid")
+                keyOption = prediction > 0.60f ? 1 : (prediction > 0.40 ? 0 : -1);
+            else if (lastActivationFunc == "TanH")
+                keyOption = prediction < -0.20f ? -1 : (prediction > 0.20 ? 1 : 0);
+        }
+        else
+        {
+            if (lastActivationFunc == "Sigmoid")
+                keyOption = prediction > 0.60f ? 1 : (prediction > 0.40 ? 0 : -1);
+            else if (lastActivationFunc == "TanH")
+                keyOption = prediction < -0.20f ? -1 : (prediction > 0.20 ? 1 : 0);
+        }
+      
         if (keyOption == 0)
         {
             if (Mathf.Abs(axisVel) <= stepSize)

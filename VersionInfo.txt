@@ -1,6 +1,4 @@
 Features for version 0.11
-1. Make a menu letting the user to 
-	a. Select the total number of neurons and hidden layers
-	b. Making new rays by writing the angles
-	c. Selecting the mutation rate 
-	d. Reset and Exit the program 
+1. The bug causing premature generation termination and sometimes even inability to learn was found and fixed
+2. UI Shows the speed of the best car
+3. The application can now be restarted without exiting and opening the application by pressing "R" and can be closed using "Esc"
