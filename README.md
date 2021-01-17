@@ -1,3 +1,4 @@
+#gracer
 A self-driving car application. The program uses Neural Network based genetic algorithm to train the model. 
 
 The inputs are 2 rays and the speed of the car, the activation function is tanh and the outputs are 3 values in the range [-1, 1] indicating how much to push the gas pedal, to turn the wheel and whether to use or not to use the brakes. 
